@@ -38,6 +38,10 @@
     <string name="settings_ngword_text">NGワードがタイトルまたはURLに含まれているフィードは表示されなくなります。</string>
     <string name="settings_ngword_add">NGワードを追加する</string>
     <string name="settings_ngword_delete">リストから削除しますか？</string>
+    <string name="settings_nguser">NGユーザ編集</string>
+    <string name="settings_nguser_text">NGユーザのコメントを非表示にします。</string>
+    <string name="settings_nguser_add">NGユーザを追加する</string>
+    <string name="settings_nguser_delete">リストから削除しますか？</string>
     <string name="settings_group_feed">フィード設定</string>
     <string name="settings_group_other">その他</string>
     <string name="settings_is_share_with_title_title">共有時にタイトルも本文に含める</string>

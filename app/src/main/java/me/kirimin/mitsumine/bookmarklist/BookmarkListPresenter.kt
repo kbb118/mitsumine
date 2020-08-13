@@ -1,5 +1,6 @@
 package me.kirimin.mitsumine.bookmarklist
 
+import me.kirimin.mitsumine._common.database.NGUserDAO
 import me.kirimin.mitsumine._common.domain.model.Bookmark
 
 class BookmarkListPresenter {
@@ -22,6 +23,9 @@ class BookmarkListPresenter {
             }
             BookmarkPopupWindowBuilder.INDEX_SEARCH -> {
                 view.startUserSearchActivity(bookmark.user)
+            }
+            BookmarkPopupWindowBuilder.MUTE_USER -> {
+                NGUserDAO.save(bookmark.user)
             }
         }
     }

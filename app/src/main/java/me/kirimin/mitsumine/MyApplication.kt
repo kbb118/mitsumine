@@ -23,7 +23,7 @@ class MyApplication : Application() {
         val builder = Configuration.Builder(baseContext)
         builder.setCacheSize(1024 * 1024 * 4)
         builder.setDatabaseName("mitsumine.db")
-        builder.setDatabaseVersion(6)
+        builder.setDatabaseVersion(7)
         ActiveAndroid.initialize(builder.create(), true)
     }
 

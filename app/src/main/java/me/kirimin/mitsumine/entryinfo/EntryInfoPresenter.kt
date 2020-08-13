@@ -1,6 +1,7 @@
 package me.kirimin.mitsumine.entryinfo
 
 import me.kirimin.mitsumine.R
+import me.kirimin.mitsumine._common.database.NGUserDAO
 import rx.subscriptions.CompositeSubscription
 import java.net.URLEncoder
 import javax.inject.Inject
@@ -20,9 +21,11 @@ class EntryInfoPresenter @Inject constructor(val useCase: EntryInfoUseCase) {
                 .subscribe ({ entryInfo ->
                     view.setEntryInfo(entryInfo)
                     view.hideProgressBar()
-                    val commentList = entryInfo.bookmarkList.filter { it.hasComment }
+                    val ngUsers = NGUserDAO.findAll()
+                    val entList = entryInfo.bookmarkList.filterNot { ngUsers.contains(it.user) }
+                    val commentList = entList.filter { it.hasComment }
                     val stars = commentList.sortedByDescending { it.stars?.allStarsCount }
-                    view.setBookmarkFragments(entryInfo.bookmarkList, commentList, stars, entryInfo.entryId)
+                    view.setBookmarkFragments(entList, commentList, stars, entryInfo.entryId)
                     view.setCommentCount(commentList.count().toString())
                     if (useCase.isLogin()) {
                         view.setRegisterBookmarkFragment(entryInfo.url)

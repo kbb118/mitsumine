@@ -15,12 +15,13 @@ object BookmarkPopupWindowBuilder {
     public val INDEX_SHARE: Int = 0
     public val INDEX_BROWSER: Int = 1
     public val INDEX_SEARCH: Int = 2
+    public val MUTE_USER: Int = 3
 
     fun build(context: Context): PopupWindow {
         val popupWindow = PopupWindow(context)
         popupWindow.contentView = LayoutInflater.from(context).inflate(R.layout.popup_list, null)
         val list = popupWindow.contentView.findViewById(R.id.popupWindowListView) as ListView
-        list.adapter = ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, listOf("共有", "ブラウザで見る", "ユーザーを検索"))
+        list.adapter = ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, listOf("共有", "ブラウザで見る", "ユーザーを検索", "このユーザーをミュート"))
         val width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160f, context.resources.displayMetrics)
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow.width = width.toInt()

@@ -6,6 +6,10 @@
             android:key="ngword"
             android:summary="@string/settings_ngword_text"
             android:title="@string/settings_ngword" />
+        <Preference
+            android:key="nguser"
+            android:summary="@string/settings_nguser_text"
+            android:title="@string/settings_nguser" />
         <CheckBoxPreference
             android:key="@string/key_is_share_with_title"
             android:summary="@string/settings_is_share_with_title_summary"

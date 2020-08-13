@@ -9,6 +9,7 @@ import android.widget.Toast
 import me.kirimin.mitsumine.R
 import me.kirimin.mitsumine._common.database.AccountDAO
 import me.kirimin.mitsumine._common.database.NGWordDAO
+import me.kirimin.mitsumine._common.database.NGUserDAO
 import me.kirimin.mitsumine.about.AboutActivity
 
 class SettingFragment : PreferenceFragment() {
@@ -22,6 +23,11 @@ class SettingFragment : PreferenceFragment() {
 
         findPreference("ngword").setOnPreferenceClickListener {
             createEditNGWordDialog().show()
+            false
+        }
+
+        findPreference("nguser").setOnPreferenceClickListener {
+            createEditNGUserDialog().show()
             false
         }
 
@@ -65,6 +71,41 @@ class SettingFragment : PreferenceFragment() {
                 .setTitle(R.string.settings_ngword_delete)
                 .setPositiveButton(android.R.string.ok, { dialog, which ->
                     NGWordDAO.delete(NGWordDAO.findAll().get(index))
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+    }
+
+    private fun createEditNGUserDialog(): AlertDialog {
+        val ngUserList = NGUserDAO.findAll().plus(getString(R.string.settings_nguser_add))
+        return AlertDialog.Builder(activity)
+                .setTitle(R.string.settings_nguser)
+                .setItems(ngUserList.toTypedArray(), { dialog, which ->
+                    if (which == ngUserList.size - 1) {
+                        createAddUserDialog().show()
+                    } else {
+                        createDeleteUserDialog(which).show()
+                    }
+                })
+                .create()
+    }
+
+    private fun createAddUserDialog(): AlertDialog {
+        val editText = EditText(activity)
+        return AlertDialog.Builder(activity)
+                .setTitle(R.string.settings_nguser_add)
+                .setPositiveButton(android.R.string.ok, { dialog, which ->
+                    if (editText.text.length != 0) NGUserDAO.save(editText.text.toString())
+                })
+                .setView(editText)
+                .create()
+    }
+
+    private fun createDeleteUserDialog(index: Int): AlertDialog {
+        return AlertDialog.Builder(activity)
+                .setTitle(R.string.settings_nguser_delete)
+                .setPositiveButton(android.R.string.ok, { dialog, which ->
+                    NGUserDAO.delete(NGUserDAO.findAll().get(index))
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .create()
